@@ -4,17 +4,60 @@
 
 {% block body %}
 <style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper { margin: 1em auto;  width: 60%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 
 <div class="example-wrapper">
-    <h1>Datos Fallecido</h1>
 
-    <ul>
-        {% for data in fallecido[0] %}
-        <li>{{data}}</li>
-        {% endfor %}
-    <ul>
+    <div class="row">
+        <div class="input-group mb-3">
+            <a href="javascript:history.back()" class="btn btn-warning"> <img src="https://img.icons8.com/material-outlined/24/000000/back--v1.png"/>Atrás</a>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h3>Datos Fallecido</h3>
+                    <a href="/editFallecido/{{fallecido[0].id_fallecido}}" class="btn btn-danger">Editar</a>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+        <div class="col">
+            <div class="">
+                <ul class="list-group">
+                    <li class="list-group-item">Edad: {{fallecido[0].edad}}</li>
+                    <li class="list-group-item">Causa Directa: {{fallecido[0].Causa_directa}}</li>
+                    <li class="list-group-item">Causa Probable: {{fallecido[0].Causa_probable}}</li>
+                    <li class="list-group-item">Tipo Defunción: {{fallecido[0].tipo_defuncion}}</li>
+                    <li class="list-group-item">Institución: {{fallecido[0].institucion}}</li>
+                    <li class="list-group-item">Sitio Defunción: {{fallecido[0].sitio_defuncion}}</li>
+                    <li class="list-group-item">Genero: {{fallecido[0].genero}}</li>
+                    <li class="list-group-item">Municipio: {{fallecido[0].municipio}}</li>
+                    <li class="list-group-item">Área: {{fallecido[0].area}}</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col">
+            <div class="">
+                <ul class="list-group">
+                    <li class="list-group-item">Tipo Documento: {{fallecido[0].tipo_documento}}</li>
+                    <li class="list-group-item">Estado Civil: {{fallecido[0].estado_civil}}</li>
+                    <li class="list-group-item">Nivel Educativo: {{fallecido[0].nivel_educativo}}</li>
+                    <li class="list-group-item">Ocupación: {{fallecido[0].ocupacion}}</li>
+                    <li class="list-group-item">Regimen de Seguridad: {{fallecido[0].regimen_seguridad}}</li>
+                    <li class="list-group-item">Administradora: {{fallecido[0].administradora}}</li>
+                    <li class="list-group-item">Pretenencia Étnica: {{fallecido[0].pertenecia_etnica}}</li>
+                    <li class="list-group-item">Grupo Indígena: {{fallecido[0].grupo_indigena}}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+    
 </div>
 {% endblock %}
