@@ -29,6 +29,7 @@ class FallecidosController extends AbstractController
     /**
      * @Route("/", name="fallecidos")
      */
+    //Funcion que devuelve un array con todos los fallecidos
     public function index( DatosfallecidoRepository $datosfallecidoRepository): Response
     {
         $getTime = time();
@@ -46,6 +47,7 @@ class FallecidosController extends AbstractController
     /*
     * @Route("/fallecidos/{id}", name="verFallecido")
     */
+    //Devuelve un fallecido el cual es consultado a traves de du ID
     public function showById(int $id, DatosfallecidoRepository $datosfallecidoRepository)
     {
         $fallecido = $datosfallecidoRepository->showDataFallecidos($id);
@@ -57,6 +59,7 @@ class FallecidosController extends AbstractController
     /*
     * @Route("/editFallecido/{id}", name="verFallecido")
     */
+    //Consulta los datos de un fallecido a traves de su ID para su posterior modificacion
     public function editFallecido(Request $request, int $id)
     {
         $em = $this->getDoctrine()->getManager();
@@ -83,6 +86,7 @@ class FallecidosController extends AbstractController
     /**
      * @Route("/registroFallecido", name="registroFallecido")
      */
+    //Registra los datos del fallecido 
     public function registerDeceased(Request $request): Response
     {
         $em = $this->getDoctrine()->getManager();
@@ -106,6 +110,7 @@ class FallecidosController extends AbstractController
     /**
      * @Route("/{idmunicipio}", name="showFallecidoByMun")
      */
+    //Devuelve los fallecidos de acuerdo a un numero de ID_minucipio
     public function showFallecidoByMun(int $idmunicipio, DatosfallecidoRepository $datosfallecidoRepository)
     {
         $em = $this->getDoctrine()->getManager();
@@ -117,6 +122,7 @@ class FallecidosController extends AbstractController
         ]);
     }
 
+    //Funcion que almacena la informacion del fallecido cuando se registra o se edita
     public function registerDeath($em, $form, $fallecido)
     {
         $this->setValue($form, $fallecido);
@@ -125,6 +131,7 @@ class FallecidosController extends AbstractController
         //$this->addFlash('exito', 'Defunción registrada');
     }
 
+    //Funcion encargada de obtener los datos del formulario de registro y edicion en el objeto fallecido para su posterior almacenamiento
     public function setValue($form, $fallecido)
     {
         $fallecido->setFechanacimientofallecido($form['fechanacimientofallecido']->getData());
@@ -147,6 +154,7 @@ class FallecidosController extends AbstractController
         $fallecido->setIdgrupoindigena($form['idgrupoindigena']->getData());
     }
 
+    //Devuelve el array con los datos de los campos que se muestran en el formulario
     public function arrFields($em, $form)
     {
         for ($i = 0; $i < count(Datosfallecido::SELECTFIELD); $i++) {
@@ -154,6 +162,7 @@ class FallecidosController extends AbstractController
         }
     }
 
+    // se encarga de llenar los select y radiobuttons de los formularios de registro y edicion
     public function fillSelector($em,  $form, $class, $label, $field, $expanded, $multiple)
     {
         $queryData = $em->getRepository($class)->findAll();
@@ -165,6 +174,7 @@ class FallecidosController extends AbstractController
         $this->addField($form, $field, ChoiceType::class, $arrOptions);
     }
 
+    //se encarga de determinar que campo tipo selec o radiobutton del formulario de edicion y registro rellenar para que el usuario pueda escoger entre las opciones posibles
     public function selectField($field, $queryData, $i)
     {
         switch ($field) {
@@ -222,6 +232,7 @@ class FallecidosController extends AbstractController
         }
     }
 
+    // crea el array que se le pasa por parametro a los select o radio button de ambos formularios
     public function arrOptions(string $label, bool $expanded, bool $multiple)
     {
         return array(
@@ -232,12 +243,14 @@ class FallecidosController extends AbstractController
             'multiple' => $multiple
         );
     }
-
+    
+    //Añade el campo al formulario escogido o solicitado
     public function addField($form, string $fieldName, $fieldType, array $arrOptions = null)
     {
         $form->add($fieldName, $fieldType, $arrOptions);
     }
 
+    //Obtiene los datos del objeto fallecido y los selecciona en el formulario de edicion
     public function fillForm($formFallecido, $dataFallecido)
     {
         $formFallecido['fechanacimientofallecido']->setData($dataFallecido->getFechanacimientofallecido());
